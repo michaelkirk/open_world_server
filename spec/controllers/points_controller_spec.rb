@@ -5,7 +5,7 @@ describe PointsController do
     it "should create a point from lat/lon" do
       Point.should_receive(:create_from_params)
 
-      post :create, { type: 'my_type',
+      post :create, { category: 'my_category',
                      payload: 'my_payload',
                      latitude: '1',
                      longitude: '2' }
@@ -16,7 +16,7 @@ describe PointsController do
 
   describe "#show" do
     it "should respond with a json representation" do
-      point = Point.new("type" => "my_type", "payload" => "my_payload", "lonlat" => "POINT(1 2)")
+      point = Point.new("category" => "my_category", "payload" => "my_payload", "lonlat" => "POINT(1 2)")
       Point.should_receive(:find).with('1').and_return(point)
 
       get :show, { id: '1' }

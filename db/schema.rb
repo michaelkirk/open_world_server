@@ -14,7 +14,7 @@
 ActiveRecord::Schema.define(:version => 20130102212103) do
 
   create_table "points", :force => true do |t|
-    t.string   "type"
+    t.string   "category"
     t.text     "payload"
     t.spatial  "lonlat",     :limit => {:srid=>4326, :type=>"point", :geographic=>true}
     t.datetime "created_at",                                                             :null => false

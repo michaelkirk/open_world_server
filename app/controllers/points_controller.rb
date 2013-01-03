@@ -7,7 +7,7 @@ class PointsController < ApplicationController
 
   # POST /points.json
   def create
-    @point = Point.create_from_params(params)
+    @point = Point.create_from_params(params[:point])
     render :json => @point, :status => :created, :location => @point
   end
 
