@@ -25,7 +25,7 @@ Stash a JSON payload along with it's location.
 
 query
 --------
-Query for all points within bounding box.
+Query for all points within a bounding box.
 
 
 In line with postgis, the bounding box is defined by it's 4 sides.
@@ -42,7 +42,7 @@ our query.
 
 request
 
-    GET /points?west=0&south=1&east=2&north=3"
+    GET /points?west=0&south=1&east=2&north=3
 
 response
 
