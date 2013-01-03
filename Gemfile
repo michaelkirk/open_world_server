@@ -9,4 +9,6 @@ gem 'activerecord-postgis-adapter'
 group :development, :test do
   gem 'rspec-rails'
   gem 'pry'
+  gem 'guard-spork'
+  gem 'rb-inotify'
 end
