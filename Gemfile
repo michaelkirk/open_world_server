@@ -5,6 +5,7 @@ gem 'rails-api'
 
 gem 'pg'
 gem 'activerecord-postgis-adapter'
+gem 'rgeo'
 
 group :development, :test do
   gem 'rspec-rails'

@@ -138,4 +138,5 @@ DEPENDENCIES
   rails (= 3.2.9)
   rails-api
   rb-inotify
+  rgeo
   rspec-rails
