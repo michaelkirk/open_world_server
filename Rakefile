@@ -4,4 +4,4 @@
 
 require File.expand_path('../config/application', __FILE__)
 
-OpenWorldsServer::Application.load_tasks
+OpenWorldServer::Application.load_tasks
