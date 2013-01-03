@@ -4,6 +4,11 @@ class Point < ActiveRecord::Base
   self.rgeo_factory_generator = RGeo::Geos.factory_generator
   set_rgeo_factory_for_column(:lonlat, RGeo::Geographic.spherical_factory(:srid => 4326))
 
+  scope :within_box, lambda { |west, south, east, north|
+    intersects_with_bounding_box_sql = sprintf("points.lonlat && ST_MakeEnvelope(%f, %f, %f, %f, 4326)", west, south, east, north)
+    where(intersects_with_bounding_box_sql)
+  }
+
   def self.create_from_params(params)
     point_params = { 
       lonlat: sprintf("POINT(%f %f)", params[:longitude], params[:latitude]),

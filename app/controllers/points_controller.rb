@@ -2,7 +2,12 @@ class PointsController < ApplicationController
 
   # GET /points.json
   def index
-    @points = Point.all
+    if(params[:west] && params[:south] && params[:east] && params[:north])
+      @points = Point.within_box(params[:west], params[:south], params[:east], params[:north])
+      render :json => @points
+    else
+      render :json => { error: 'must specify west,south,east,north parameters of bounding box' }, :code => 501
+    end
   end
 
   # POST /points.json

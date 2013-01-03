@@ -35,4 +35,26 @@ describe Point do
                                              :longitude => 2.0 }}
     end
   end
+
+  describe ".within_box" do
+    it "should return points whose latitude and longitude falls within the corners of the bounding box" do
+      # some points grabbed from gmaps.
+      southwest_corner =  "(-94.247318, 44.970218)"
+      northeast_corner =  "(-93.242812, 44.972449)"
+      in_box = "(-93.244035, 44.97128)"
+      out_of_box = "(-93.249711, 44.973179)"
+
+      point_in_box = Point.create_from_params(category: 'my_category',
+                        payload: 'my_payload',
+                        longitude: -93,
+                        latitude: 45)
+      point_not_in_box = Point.create_from_params(category: 'my_category',
+                        payload: 'my_payload',
+                        longitude: -95,
+                        latitude:  45)
+
+                      #( w,  s,  e,  n )
+      Point.within_box(-94, 44, -92, 46).should == [point_in_box]
+    end
+  end
 end

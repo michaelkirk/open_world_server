@@ -26,4 +26,11 @@ describe PointsController do
     end
   end
 
+  describe "#index" do
+    it "should return points within bounding box" do
+      Point.should_receive(:within_box).with('0', '1', '2', '3')
+      get :index, { west: 0, south: 1, east: 2, north: 3 }
+    end
+  end
+
 end
