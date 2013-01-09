@@ -11,5 +11,6 @@ group :development, :test do
   gem 'rspec-rails'
   gem 'pry'
   gem 'guard-spork'
+  gem 'guard-rspec'
   gem 'rb-inotify'
 end
