@@ -1,3 +1,5 @@
 OpenWorldServer::Application.routes.draw do
-  resources :points
+  resources :points do
+    resources :payloads
+  end
 end

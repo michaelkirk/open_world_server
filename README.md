@@ -11,16 +11,37 @@ store
 -----
 Stash a JSON payload along with it's location.
 
+
+request
+
     POST /points 
       { 
-        category: "photo", 
-        payload: { 
-          "url": "s3://mybucket/photo.jpg",
-          "width": 500,
-          "height": 200 
-        },
-        latitude: "123",
-        longitude: "456"
+        latitude: "12.3",
+        longitude: "45.6",
+        payloads: [{ 
+          payload_type: "photo", 
+          data: {
+            "url": "s3://mybucket/photo.jpg",
+            "author_name": "ed"
+          }
+        }]
+      }
+
+response
+  
+    201 CREATED
+    Location: http://www.example.com/
+      { 
+        id: 123,
+        latitude: "12.3",
+        longitude: "45.6",
+        payloads: [{ 
+          payload_type: "photo", 
+          data: {
+            "url": "s3://mybucket/photo.jpg",
+            "author_name": "ed"
+          }
+        }]
       }
 
 query
@@ -49,25 +70,49 @@ response
     [
       { 
         id: 1,
-        category: "photo", 
-        payload: { 
-          "url": "s3://mybucket/photo.jpg",
-          "width": 500,
-          "height": 200 
-        },
         latitude: "50",
-        longitude: "275"
+        longitude: "275",
+        deleted: false,
+        payloads: [
+          { 
+            point_id: 1,
+            payload_id: 1,
+            payload_type: "photo", 
+            flag_count: 0,
+            data: {
+              url: "s3://mybucket/photo.jpg",
+              width: 500,
+              height: 200 
+            }
+          },
+          { 
+            point_id: 1,
+            payload_id: 2,
+            payload_type: "comment", 
+            flag_count: 2,
+            data: {
+              text: "This photo is awesome" 
+            }
+          }
+        ]
       },
       { 
-        id: 2,
-        category: "photo", 
-        payload: { 
-          "url": "s3://mybucket/photo3.jpg",
-          "width": 500,
-          "height": 200 
-        },
+        id: 4,
         latitude: "75",
         longitude: "250"
+        payloads: [
+          { 
+            point_id: 2,
+            payload_id: 6,
+            payload_type: "photo", 
+            flag_count: 0,
+            data: {
+              url: "s3://mybucket/photo3.jpg",
+              width: 500,
+              height: 200 
+            }
+          }
+        ]
       }
     ]
 
@@ -82,17 +127,87 @@ request
 
 response
 
-     { 
+      { 
         id: 1,
-        category: "photo", 
-        payload: { 
+        latitude: "50",
+        longitude: "275",
+        payloads: [
+          { 
+            point_id: 1,
+            payload_id: 1,
+            payload_type: "photo", 
+            flag_count: 0,
+            data: {
+              url: "s3://mybucket/photo.jpg",
+              width: 500,
+              height: 200 
+            }
+          },
+          { 
+            point_id: 1,
+            payload_id: 2,
+            payload_type: "comment", 
+            flag_count: 0,
+            data: {
+              text: "This photo is awesome" 
+            }
+          }
+        ]
+      },
+
+Payloads
+========
+
+attach
+------
+Attach a payload to a point.
+
+request
+
+    POST /points/1/payloads
+
+      {
+        payload_type: "comment",
+        data: { 
+          "text": "Your photos suck."
+        }
+      }
+
+response
+
+    201 CREATED
+
+      /points/1/payloads/4
+
+
+    FLAG /points/1/payloads/4
+
+    FLAG /points/1
+
+
+
+
+fetch
+-----
+Get a payload
+
+request
+
+    GET /points/1/payloads/4
+
+response
+
+      {
+        id: 4,
+        point_id: 1,
+        payload_type: "photo",
+        data: { 
           "url": "s3://mybucket/photo.jpg",
           "width": 500,
           "height": 200 
-        },
-        latitude: "123",
-        longitude: "456"
+        }
       }
+
 
 
 Development

@@ -1,6 +1,8 @@
 class Point < ActiveRecord::Base
-  attr_accessible :lonlat, :payload, :category
-  #factory = RGeo::Geographic.spherical_factory(:srid => 4326)
+  attr_accessible :lonlat, :payloads_attributes
+  has_many :payloads
+  accepts_nested_attributes_for :payloads
+
   self.rgeo_factory_generator = RGeo::Geos.factory_generator
   set_rgeo_factory_for_column(:lonlat, RGeo::Geographic.spherical_factory(:srid => 4326))
 
@@ -10,18 +12,25 @@ class Point < ActiveRecord::Base
   }
 
   def self.create_from_params(params)
-    point_params = { 
-      lonlat: sprintf("POINT(%f %f)", params[:longitude], params[:latitude]),
-      payload: params[:payload],
-      category: params[:category]
-    }
+    point_params = {}
+
+    if(params[:longitude] && params[:latitude])
+      point_params[:lonlat] = sprintf("POINT(%f %f)", params[:longitude], params[:latitude])
+    end
+
+    if(params[:payloads]) 
+      point_params[:payloads_attributes] = params[:payloads]
+    end
 
     create(point_params)
   end
 
   def as_json(params = {})
-    super params.reverse_merge(:only => [:category, :payload],
-                               :methods => [:latitude, :longitude])
+    super params.reverse_merge(
+      only: [:id],
+      include: [{ payloads: {
+                    only: [:data, :payload_type]}}],
+      methods: [:latitude, :longitude])
   end
 
   def latitude
