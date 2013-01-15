@@ -11,11 +11,19 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130102212103) do
+ActiveRecord::Schema.define(:version => 20130109182026) do
+
+  create_table "payloads", :force => true do |t|
+    t.integer  "point_id"
+    t.string   "payload_type"
+    t.text     "data"
+    t.datetime "created_at",   :null => false
+    t.datetime "updated_at",   :null => false
+  end
+
+  add_index "payloads", ["point_id"], :name => "index_payloads_on_point_id"
 
   create_table "points", :force => true do |t|
-    t.string   "category"
-    t.text     "payload"
     t.spatial  "lonlat",     :limit => {:srid=>4326, :type=>"point", :geographic=>true}
     t.datetime "created_at",                                                             :null => false
     t.datetime "updated_at",                                                             :null => false
