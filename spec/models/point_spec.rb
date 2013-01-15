@@ -30,6 +30,8 @@ describe Point do
           id: nil,
           payloads: [
             {
+              id: nil,
+              point_id: nil,
               payload_type: "my_type", 
               data: 'my_payload'
             }

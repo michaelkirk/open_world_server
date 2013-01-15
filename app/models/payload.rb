@@ -6,7 +6,7 @@ class Payload < ActiveRecord::Base
 
   def as_json(params = {})
     super params.reverse_merge(
-      only: [:data, :payload_type, :id]
+      only: [:data, :payload_type, :id, :point_id]
     )
   end
 

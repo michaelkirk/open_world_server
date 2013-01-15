@@ -29,7 +29,7 @@ class Point < ActiveRecord::Base
     super params.reverse_merge(
       only: [:id],
       include: [{ payloads: {
-                    only: [:data, :payload_type]}}],
+                    only: [:data, :payload_type, :id, :point_id]}}],
       methods: [:latitude, :longitude])
   end
 
