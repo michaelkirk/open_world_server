@@ -6,7 +6,8 @@ class PointsController < ApplicationController
       @points = Point.within_box(params[:west], params[:south], params[:east], params[:north])
       render :json => @points
     else
-      render :json => { error: 'must specify west,south,east,north parameters of bounding box' }, :code => 501
+      #TODO find user input invalid HTTP code when I'm back online
+      render :json => { error: 'must specify west, south, east, north parameters of bounding box' }, :status => 501
     end
   end
 

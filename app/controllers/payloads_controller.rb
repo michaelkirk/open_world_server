@@ -1,24 +1,27 @@
 class PayloadsController < ApplicationController
-  # GET /payloads
-  # GET /payloads.json
+  # GET /points/2/payloads
+  # GET /points/2/payloads.json
   def index
-    @payloads = Payload.all
+    @point = Point.find(params[:point_id])
+    @payloads = @point.payloads
 
     render json: @payloads
   end
 
-  # GET /payloads/1
-  # GET /payloads/1.json
+  # GET /points/2/payloads/1
+  # GET /points/2/payloads/1.json
   def show
-    @payload = Payload.find(params[:id])
+    @point = Point.find(params[:point_id])
+    @payload = @point.payloads.find(params[:id])
 
     render json: @payload
   end
 
-  # POST /payloads
-  # POST /payloads.json
+  # POST /points/2/payloads
+  # POST /points/2/payloads.json
   def create
-    @payload = Payload.new(params[:payload])
+    @point = Point.find(params[:point_id])
+    @payload = @point.payloads.create(params[:payload])
 
     if @payload.save
       render json: @payload, status: :created, location: point_payloads_url(@payload)
@@ -27,10 +30,11 @@ class PayloadsController < ApplicationController
     end
   end
 
-  # PATCH/PUT /payloads/1
-  # PATCH/PUT /payloads/1.json
+  # PATCH/PUT /points/2/payloads/1
+  # PATCH/PUT /points/2/payloads/1.json
   def update
-    @payload = Payload.find(params[:id])
+    @point = Point.find(params[:point_id])
+    @payload = @point.payloads.find(params[:id])
 
     if @payload.update_attributes(params[:payload])
       head :no_content
@@ -39,10 +43,11 @@ class PayloadsController < ApplicationController
     end
   end
 
-  # DELETE /payloads/1
-  # DELETE /payloads/1.json
+  # DELETE /points/2/payloads/1
+  # DELETE /points/2/payloads/1.json
   def destroy
-    @payload = Payload.find(params[:id])
+    @point = Point.find(params[:point_id])
+    @payload = @point.payloads.find(params[:id])
     @payload.destroy
 
     head :no_content

@@ -1,6 +1,6 @@
 class Point < ActiveRecord::Base
   attr_accessible :lonlat, :payloads_attributes
-  has_many :payloads
+  has_many :payloads, :dependent => :destroy
   accepts_nested_attributes_for :payloads
 
   self.rgeo_factory_generator = RGeo::Geos.factory_generator
