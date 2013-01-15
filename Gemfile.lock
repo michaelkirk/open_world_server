@@ -37,6 +37,11 @@ GEM
     coderay (1.0.8)
     diff-lcs (1.1.3)
     erubis (2.7.0)
+    factory_girl (4.1.0)
+      activesupport (>= 3.0.0)
+    factory_girl_rails (4.1.0)
+      factory_girl (~> 4.1.0)
+      railties (>= 3.0.0)
     ffi (1.2.0)
     guard (1.6.1)
       listen (>= 0.6.0)
@@ -139,6 +144,7 @@ PLATFORMS
 
 DEPENDENCIES
   activerecord-postgis-adapter
+  factory_girl_rails
   guard-rspec
   guard-spork
   pg
