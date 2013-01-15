@@ -3,12 +3,12 @@ Open World Server
 
 A dumb service for storing and retrieiving spatially aware content. 
 
-Are you building a map of photos / restaurants / <stuff> ?  Maybe this
+Are you building a map of photos / restaurants / &lt;stuff&gt; ?  Maybe this
 service can get you jump started. 
 
-Assuming you can serialize your "stuff" to a string representation, this
+Assuming you can serialize your &lt;stuff&gt; to a string representation, this
 service will take care of storing it and retrieving it by location -
-allowing you to (e.g.) get all the <stuff> on the current map pane.
+allowing you to (e.g.) get all the &lt;stuff&gt; on the current map pane.
 
 API
 ===
